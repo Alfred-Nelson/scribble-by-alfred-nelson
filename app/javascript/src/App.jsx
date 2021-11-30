@@ -4,6 +4,7 @@ import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { setAuthHeaders, registerIntercepts } from "apis/axios";
+import Container from "components/Container";
 import Dashboard from "components/Dashboard";
 
 const App = () => {
@@ -21,9 +22,11 @@ const App = () => {
   return (
     <Router>
       <ToastContainer />
-      <Switch>
-        <Route exact path="/" render={Dashboard} />
-      </Switch>
+      <Container>
+        <Switch>
+          <Route exact path="/" render={Dashboard} />
+        </Switch>
+      </Container>
     </Router>
   );
 };
