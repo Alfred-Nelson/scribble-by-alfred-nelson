@@ -16,6 +16,7 @@ const Article = ({
   setSelectedCategory,
   setArticleTitle,
   setArticleBody,
+  handleSubmit,
 }) => {
   const [statusAsPublished, setStatusAsPublished] = useState(false);
 
@@ -49,6 +50,7 @@ const Article = ({
             label={statusAsPublished ? "Save Published" : "Save Draft"}
             size="large"
             className="bg-bb-purple rounded-l-md"
+            onClick={handleSubmit}
           />
           <div className="border-l border-white">
             <Dropdown
