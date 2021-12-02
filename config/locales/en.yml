@@ -31,3 +31,4 @@
 
 en:
   hello: "Hello world"
+  created: "%{entity} created successfully"

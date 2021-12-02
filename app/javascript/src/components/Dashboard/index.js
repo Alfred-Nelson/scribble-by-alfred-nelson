@@ -2,10 +2,15 @@ import React from "react";
 
 import { Search, Down, Plus } from "@bigbinary/neeto-icons";
 import { Input, Button } from "@bigbinary/neetoui/v2";
+import { useHistory } from "react-router";
 
 import SidePane from "./SidePane";
 
 const Dashboard = () => {
+  const history = useHistory();
+
+  const handleClick = () => history.push("/article/new");
+
   return (
     <div className="flex">
       <SidePane />
@@ -22,6 +27,7 @@ const Dashboard = () => {
             icon={Plus}
             size="large"
             className="bg-bb-purple"
+            onClick={handleClick}
           />
         </div>
       </div>
