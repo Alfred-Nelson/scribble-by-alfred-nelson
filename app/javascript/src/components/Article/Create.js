@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 
 import { Warning } from "@bigbinary/neeto-icons";
 import { Callout } from "@bigbinary/neetoui/v2";
+import { useHistory } from "react-router";
 
+import { ArticlesApi } from "apis/articles";
 import { CategoriesApi } from "apis/categories";
 import Article from "components/Form/Article";
 
 const Create = () => {
   const [categoriesOptions, setCategoriesOptions] = useState({});
   const [selectedCategory, setSelectedCategory] = useState({});
+  const [statusAsPublished, setStatusAsPublished] = useState(false);
   const [articleTitle, setArticleTitle] = useState("");
   const [articleBody, setArticleBody] = useState("");
   const [hasError, setHasError] = useState(null);
+  const history = useHistory();
 
   const fetchCategoryList = async () => {
     const response = await CategoriesApi.list();
@@ -32,7 +36,23 @@ const Create = () => {
       setHasError("Article body cannot be blank");
     } else {
       setHasError("");
+      const payload = {
+        heading: articleTitle,
+        content: articleBody,
+        status: statusAsPublished ? 1 : 0,
+        category_id: selectedCategory.value,
+      };
+      try {
+        ArticlesApi.create(payload);
+        history.push("/");
+      } catch (e) {
+        true;
+      }
     }
+  };
+
+  const handleCancel = () => {
+    history.push("/");
   };
 
   useEffect(() => {
@@ -53,10 +73,13 @@ const Create = () => {
         articleTitle={articleTitle}
         articleBody={articleBody}
         selectedCategory={selectedCategory}
+        statusAsPublished={statusAsPublished}
+        setStatusAsPublished={setStatusAsPublished}
         setSelectedCategory={setSelectedCategory}
         setArticleTitle={setArticleTitle}
         setArticleBody={setArticleBody}
         handleSubmit={handleSubmit}
+        handleCancel={handleCancel}
       />
     </>
   );

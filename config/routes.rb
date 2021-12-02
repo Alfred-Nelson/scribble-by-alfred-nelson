@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   defaults format: :json do
     resources :categories, only: %i[index]
+    resources :articles, only: %i[create]
   end
 
   root "home#index"

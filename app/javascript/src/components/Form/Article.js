@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
   Input,
@@ -14,12 +14,13 @@ const Article = ({
   articleBody,
   selectedCategory,
   setSelectedCategory,
+  statusAsPublished,
+  setStatusAsPublished,
   setArticleTitle,
   setArticleBody,
   handleSubmit,
+  handleCancel,
 }) => {
-  const [statusAsPublished, setStatusAsPublished] = useState(false);
-
   return (
     <div className="w-full flex justify-center mt-10">
       <div className="w-7/12">
@@ -63,7 +64,13 @@ const Article = ({
               <li onClick={() => setStatusAsPublished(true)}>Save Published</li>
             </Dropdown>
           </div>
-          <Button label="Cancel" style="text" size="large" className="ml-2" />
+          <Button
+            label="Cancel"
+            style="text"
+            size="large"
+            className="ml-2"
+            onClick={handleCancel}
+          />
         </div>
       </div>
     </div>
