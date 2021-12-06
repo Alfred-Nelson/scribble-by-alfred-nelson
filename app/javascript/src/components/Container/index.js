@@ -8,7 +8,7 @@ import Line from "components/Common/utils/Line";
 
 const Container = ({ children }) => {
   return (
-    <div>
+    <div className="w-full fixed">
       <div className="py-5 flex justify-between mx-4">
         <div className="flex ">
           <Link to="/">

@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+    @user = User.first
+  end
+
   def create
     article = Article.new(article_params)
     if article.save

@@ -16,13 +16,19 @@ module.exports = {
         "bb-red": "#F56565",
         "bb-green": "#31C48D",
         "bb-yellow": "#F6B100",
-        "nitro-gray-800": "#1F2937"
+        "nitro-gray-800": "#1F2937",
+        "nitro-indigo": "#EEF2FF",
+        "simple-bg-gray": "#F8F9F9",
+        "bb-indigo-500": "#6366F1"
       },
       boxShadow: {
         "custom-box-shadow": "10px 10px 5px 200px rgba(0,0,0,1)"
       }
     },
   },
-  variants: {},
+  variants: {
+    backgroundColor: ["even"],
+    textColor: ["first","hover"]
+  },
   plugins: [],
 }
