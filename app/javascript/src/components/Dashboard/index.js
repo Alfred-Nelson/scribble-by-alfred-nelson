@@ -25,7 +25,8 @@ const Dashboard = () => {
 
   const fetchArticleDetails = async () => {
     const response = await ArticlesApi.list();
-    const articlesData = response.data.articles;
+    const data = response.data;
+    const articlesData = data.articles;
     setArticles(articlesData);
     setAllArticlesLength(articlesData.length);
     const published = articlesData.filter(
@@ -36,6 +37,7 @@ const Dashboard = () => {
       record => record.status === "Draft"
     ).length;
     setDraftArticlesLength(draft);
+    setCategories(data.categories);
   };
 
   const fetchCategoryDetails = async () => {
@@ -48,14 +50,24 @@ const Dashboard = () => {
       ...columns,
       {
         id: "Edit",
-        Cell: () => (
+        Cell: ({ row }) => (
           <div className="flex">
             {columns
               .map(column => (column.isVisible ? "yes" : "no"))
               .filter(value => value === "yes").length > 0 ? (
               <>
-                <Delete className="hover:text-red-400 mr-4 " size={18} />
-                <Edit className="hover:text-indigo-600" size={21} />
+                <Delete
+                  className="hover:text-red-400 mr-4 "
+                  size={18}
+                  onClick={() => {}}
+                />
+                <Edit
+                  className="hover:text-indigo-600"
+                  size={21}
+                  onClick={() =>
+                    history.push(`/article/${row.original.id}/edit`)
+                  }
+                />
               </>
             ) : null}
           </div>
@@ -73,7 +85,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchArticleDetails();
-    fetchCategoryDetails();
   }, []);
 
   return (

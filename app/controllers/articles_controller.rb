@@ -2,8 +2,9 @@
 
 class ArticlesController < ApplicationController
   def index
-    @articles = Article.all
-    @user = User.first
+    @articles = Article.includes(:category).all
+    @categories = Category.includes(:articles).all
+    @user_name = User.first.name
   end
 
   def create
@@ -13,6 +14,9 @@ class ArticlesController < ApplicationController
     else
       render status: :unprocessable_entity, json: { error: article.errors.full_messages }
     end
+  end
+
+  def show
   end
 
   private
