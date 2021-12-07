@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.article do
   json.extract! @article, :heading, :content
   json.category do
