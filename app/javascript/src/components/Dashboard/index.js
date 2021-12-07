@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [allArticlesLength, setAllArticlesLength] = useState(0);
   const [publishedArticlesLength, setPublishedArticlesLength] = useState(0);
   const [draftArticlesLength, setDraftArticlesLength] = useState(0);
+  const [onDeleteChanges, setOnDeleteChanges] = useState(null);
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => articles, [articles]);
   const history = useHistory();
@@ -45,6 +46,32 @@ const Dashboard = () => {
     setCategories(response.data.categories);
   };
 
+  const handleDelete = async (id, value) => {
+    const r = confirm(`Are you sure to delete the article "${value}"`);
+    if (r) {
+      setOnDeleteChanges(id);
+      await ArticlesApi.destroy(id);
+    }
+  };
+
+  const handleOnDeleteChanges = () => {
+    let statusOfArticleToBeRemoved;
+    const newArticles = articles.filter(article => {
+      if (article.id === onDeleteChanges) {
+        statusOfArticleToBeRemoved = article.status;
+      }
+
+      return article.id !== onDeleteChanges;
+    });
+    if (statusOfArticleToBeRemoved === "Published") {
+      setPublishedArticlesLength(prev => prev - 1);
+    } else {
+      setDraftArticlesLength(prev => prev - 1);
+    }
+    setArticles(newArticles);
+    setOnDeleteChanges(null);
+  };
+
   const tableHooks = hooks => {
     hooks.visibleColumns.push(columns => [
       ...columns,
@@ -59,7 +86,9 @@ const Dashboard = () => {
                 <Delete
                   className="hover:text-red-400 mr-4 "
                   size={18}
-                  onClick={() => {}}
+                  onClick={() =>
+                    handleDelete(row.original.id, row.original.heading)
+                  }
                 />
                 <Edit
                   className="hover:text-indigo-600"
@@ -82,6 +111,12 @@ const Dashboard = () => {
     useGlobalFilter,
     useFilters
   );
+
+  useEffect(() => {
+    if (onDeleteChanges) {
+      handleOnDeleteChanges();
+    }
+  }, [onDeleteChanges]);
 
   useEffect(() => {
     fetchArticleDetails();

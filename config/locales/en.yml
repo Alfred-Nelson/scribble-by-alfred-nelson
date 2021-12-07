@@ -33,3 +33,5 @@ en:
   hello: "Hello world"
   created: "%{entity} created successfully"
   not_found: "%{entity} was not found"
+  destroyed: "%{entity} was successfully destoryed "
+  updated: "%{entity} was successfully updated"
