@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
+  before_action :load_article, only: %i[show]
+
   def index
     @articles = Article.includes(:category).all
     @categories = Category.includes(:articles).all
-    @user_name = User.first.name
   end
 
   def create
@@ -17,11 +18,19 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @categories = Category.all
   end
 
   private
 
     def article_params
       params.require(:article).permit(:heading, :content, :status, :category_id)
+    end
+
+    def load_article
+      @article = Article.find_by_id(params[:id])
+      unless @article
+        render status: :not_found, json: { error: t("not_found", entity: "Article") }
+      end
     end
 end
