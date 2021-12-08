@@ -8,6 +8,7 @@ import Create from "components/Article/Create";
 import Edit from "components/Article/Edit";
 import Container from "components/Container";
 import Dashboard from "components/Dashboard";
+import Settings from "components/Settings";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ const App = () => {
       <ToastContainer />
       <Container>
         <Switch>
+          <Route path="/settings" component={Settings} />
           <Route exact path="/article/new" component={Create} />
           <Route exact path="/article/:id/edit" component={Edit} />
           <Route exact path="/" component={Dashboard} />
