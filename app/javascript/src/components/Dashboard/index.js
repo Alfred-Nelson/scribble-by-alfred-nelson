@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [allArticlesLength, setAllArticlesLength] = useState(0);
   const [publishedArticlesLength, setPublishedArticlesLength] = useState(0);
   const [draftArticlesLength, setDraftArticlesLength] = useState(0);
+  const [onDeleteChanges, setOnDeleteChanges] = useState(null);
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => articles, [articles]);
   const history = useHistory();
@@ -25,7 +26,8 @@ const Dashboard = () => {
 
   const fetchArticleDetails = async () => {
     const response = await ArticlesApi.list();
-    const articlesData = response.data.articles;
+    const data = response.data;
+    const articlesData = data.articles;
     setArticles(articlesData);
     setAllArticlesLength(articlesData.length);
     const published = articlesData.filter(
@@ -36,6 +38,7 @@ const Dashboard = () => {
       record => record.status === "Draft"
     ).length;
     setDraftArticlesLength(draft);
+    setCategories(data.categories);
   };
 
   const fetchCategoryDetails = async () => {
@@ -43,19 +46,57 @@ const Dashboard = () => {
     setCategories(response.data.categories);
   };
 
+  const handleDelete = async (id, value) => {
+    const r = confirm(`Are you sure to delete the article "${value}"`);
+    if (r) {
+      setOnDeleteChanges(id);
+      await ArticlesApi.destroy(id);
+    }
+  };
+
+  const handleOnDeleteChanges = () => {
+    let statusOfArticleToBeRemoved;
+    const newArticles = articles.filter(article => {
+      if (article.id === onDeleteChanges) {
+        statusOfArticleToBeRemoved = article.status;
+      }
+
+      return article.id !== onDeleteChanges;
+    });
+    if (statusOfArticleToBeRemoved === "Published") {
+      setPublishedArticlesLength(prev => prev - 1);
+    } else {
+      setDraftArticlesLength(prev => prev - 1);
+    }
+    setArticles(newArticles);
+    setOnDeleteChanges(null);
+  };
+
   const tableHooks = hooks => {
     hooks.visibleColumns.push(columns => [
       ...columns,
       {
         id: "Edit",
-        Cell: () => (
+        Cell: ({ row }) => (
           <div className="flex">
             {columns
               .map(column => (column.isVisible ? "yes" : "no"))
               .filter(value => value === "yes").length > 0 ? (
               <>
-                <Delete className="hover:text-red-400 mr-4 " size={18} />
-                <Edit className="hover:text-indigo-600" size={21} />
+                <Delete
+                  className="hover:text-red-400 mr-4 "
+                  size={18}
+                  onClick={() =>
+                    handleDelete(row.original.id, row.original.heading)
+                  }
+                />
+                <Edit
+                  className="hover:text-indigo-600"
+                  size={21}
+                  onClick={() =>
+                    history.push(`/article/${row.original.id}/edit`)
+                  }
+                />
               </>
             ) : null}
           </div>
@@ -72,8 +113,13 @@ const Dashboard = () => {
   );
 
   useEffect(() => {
+    if (onDeleteChanges) {
+      handleOnDeleteChanges();
+    }
+  }, [onDeleteChanges]);
+
+  useEffect(() => {
     fetchArticleDetails();
-    fetchCategoryDetails();
   }, []);
 
   return (

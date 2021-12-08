@@ -17,6 +17,7 @@ const Container = ({ children }) => {
             </Typography>
           </Link>
           <NavLink
+            exact
             to="/"
             className={isActive =>
               isActive ? "text-indigo-600" : "text-black"

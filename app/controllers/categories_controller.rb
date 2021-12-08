@@ -2,7 +2,7 @@
 
 class CategoriesController < ApplicationController
   def index
-    @category = Category.all
+    @category = Category.includes(:articles).all
   end
 
   def create

@@ -17,6 +17,7 @@ const AddCategoryInput = ({
       await CategoriesApi.create({ category: { value: categoryInputValue } });
       setIsAddCategoryCollapsed(true);
       fetchCategoryDetails();
+      setCategoryInputValue("");
     } else {
       setIsAddCategoryCollapsed(true);
     }
