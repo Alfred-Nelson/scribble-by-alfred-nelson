@@ -56,9 +56,11 @@ const Dashboard = () => {
 
   const handleOnDeleteChanges = () => {
     let statusOfArticleToBeRemoved;
+    let articleCategory;
     const newArticles = articles.filter(article => {
       if (article.id === onDeleteChanges) {
         statusOfArticleToBeRemoved = article.status;
+        articleCategory = article.category;
       }
 
       return article.id !== onDeleteChanges;
@@ -68,6 +70,18 @@ const Dashboard = () => {
     } else {
       setDraftArticlesLength(prev => prev - 1);
     }
+    const categoryToBe = categories.map(category => {
+      if (category.value === articleCategory) {
+        return {
+          value: category.value,
+          article_count: category.article_count - 1,
+        };
+      }
+
+      return { value: category.value, article_count: category.article_count };
+    });
+    setCategories(categoryToBe);
+    setAllArticlesLength(prev => prev - 1);
     setArticles(newArticles);
     setOnDeleteChanges(null);
   };

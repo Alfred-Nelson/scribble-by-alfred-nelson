@@ -57,3 +57,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # for react on rails
 gem "react-rails"
+
+# for authentication
+gem "bcrypt", "~> 3.1.13"
