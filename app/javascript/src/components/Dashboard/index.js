@@ -50,7 +50,7 @@ const Dashboard = () => {
     const r = confirm(`Are you sure to delete the article "${value}"`);
     if (r) {
       setOnDeleteChanges(id);
-      //await ArticlesApi.destroy(id);
+      await ArticlesApi.destroy(id);
     }
   };
 

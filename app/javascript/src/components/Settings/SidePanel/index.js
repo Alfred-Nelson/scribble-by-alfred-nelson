@@ -73,7 +73,7 @@ const SidePanel = ({ children }) => {
           </div>
         </div>
       </aside>
-      <main className="w-full mt-6">{children}</main>
+      <main className="w-full mt-10">{children}</main>
     </div>
   );
 };
