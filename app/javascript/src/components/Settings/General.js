@@ -78,7 +78,7 @@ const General = () => {
       <div className="w-full flex justify-center">
         <div className="w-400 mr-20">
           <Typography style="h2">General Settings</Typography>
-          <Typography style="body2">
+          <Typography style="body2" className="text-gray-600">
             Configure general attributes of scribble
           </Typography>
           <Input

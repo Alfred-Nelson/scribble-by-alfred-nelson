@@ -60,3 +60,6 @@ gem "react-rails"
 
 # for authentication
 gem "bcrypt", "~> 3.1.13"
+
+# for reordering position
+gem "acts_as_list"
