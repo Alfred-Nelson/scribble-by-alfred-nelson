@@ -3,7 +3,7 @@
 class CategoriesController < ApplicationController
   before_action :load_category, only: %i[update destroy]
   def index
-    @category = Category.includes(:articles).all
+    @category = Category.includes(:articles).all.order("position")
   end
 
   def create
@@ -45,6 +45,6 @@ class CategoriesController < ApplicationController
     end
 
     def category_params
-      params.require(:category).permit(:value)
+      params.require(:category).permit(:value, :position)
     end
 end

@@ -75,11 +75,7 @@ const Table = ({ tableInstance }) => {
                                 : null
                             }
                           >
-                            {cell.column.id !== "date" ||
-                            row.original.status !== "Draft" ||
-                            cell.render("Cell") === ""
-                              ? cell.render("Cell")
-                              : "-"}
+                            {cell.render("Cell")}
                           </p>
                         </td>
                       );

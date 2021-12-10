@@ -2,5 +2,5 @@
 
 json.categories @category do |category|
   json.extract! category, :id, :value, :position
-  json.article_count category.articles.length
+  json.article_count category.articles&.length
 end
