@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  has_many :articles
+  acts_as_list
+  has_many :articles, dependent: :nullify
   validates :value, presence: true
 end

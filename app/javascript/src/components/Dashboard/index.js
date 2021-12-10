@@ -47,8 +47,8 @@ const Dashboard = () => {
   };
 
   const handleDelete = async (id, value) => {
-    const r = confirm(`Are you sure to delete the article "${value}"`);
-    if (r) {
+    const result = confirm(`Are you sure to delete the article "${value}"`);
+    if (result) {
       setOnDeleteChanges(id);
       await ArticlesApi.destroy(id);
     }

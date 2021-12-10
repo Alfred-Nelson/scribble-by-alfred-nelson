@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.includes(:category).all
-    @categories = Category.includes(:articles).all
+    @categories = Category.includes(:articles).all.order("position")
     @user_name = User.first.name
   end
 
@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @categories = Category.all
+    @categories = Category.all.order("position")
   end
 
   def destroy
