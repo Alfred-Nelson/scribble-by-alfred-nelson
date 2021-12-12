@@ -3,7 +3,7 @@
 json.article do
   json.extract! @article, :heading, :content
   json.category do
-    json.extract! @article.category, :id, :value
+    json.extract! @article.category, :id, :value if @article.category
   end
 end
 

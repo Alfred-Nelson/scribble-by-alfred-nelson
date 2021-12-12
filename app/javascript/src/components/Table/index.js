@@ -2,12 +2,40 @@ import React, { useEffect, useState } from "react";
 
 import { Typography } from "@bigbinary/neetoui/v2";
 
-const Table = ({ tableInstance }) => {
+import TableData from "components/Dashboard/TableData";
+import Redirection from "components/Form/Redirection";
+import RedirectionTableData from "components/Settings/Redirection/RedirectionTableData";
+
+const Table = ({
+  tableInstance,
+  check = true,
+  editInput = null,
+  editFromInput = null,
+  editToInput = null,
+  showAddRedirectionInput = null,
+  tableElement = null,
+  setShowRedirectionInput = () => {},
+  setEditFromInput = () => {},
+  setEditToInput = () => {},
+  setEditInput = () => {},
+  fetchDetails = () => {},
+}) => {
   const [rowsToZero, setRowsToZero] = useState(false);
   const { getTableProps, getTableBodyProps, prepareRow, headerGroups, rows } =
     tableInstance;
-
-  const fadedColumn = ["AUTHOR", "CATEGORY", "STATUS"];
+  const topStyle = check ? "w-full" : "h-100";
+  const mainStyle = check
+    ? "ml-5 mt-10 h-550 overflow-y-scroll"
+    : "ml-4 mr-4 max-h-400 overflow-y-scroll mt-5";
+  const tableStyle = check
+    ? "w-full mt-5 table-fixed"
+    : " w-full mt-5 table-fixed";
+  const thStyle = check
+    ? "text-left text-gray-500 pb-4 text-xs "
+    : "text-left text-gray-500 pb-4 text-xs pl-5";
+  const trDataStyle = check
+    ? " w-full even:bg-gray-100"
+    : "w-full bg-white border-b-8 border-nitro-indigo";
 
   useEffect(() => {
     if (headerGroups[0].headers.length === 1) {
@@ -18,12 +46,14 @@ const Table = ({ tableInstance }) => {
   }, [headerGroups]);
 
   return (
-    <div className="w-full">
-      <div className="ml-5 mt-10">
-        <Typography style="body2" weight="bold">
-          {rowsToZero ? 0 : rows.length} Articles
-        </Typography>
-        <table {...getTableProps()} className="w-full mt-5">
+    <div className={topStyle}>
+      <div ref={tableElement} className={mainStyle}>
+        {check ? (
+          <Typography style="body2" weight="bold">
+            {rowsToZero ? 0 : rows.length} Articles
+          </Typography>
+        ) : null}
+        <table {...getTableProps()} className={tableStyle}>
           <thead>
             {headerGroups.map((headerGroup, headerGroupIndex) => {
               return (
@@ -36,7 +66,7 @@ const Table = ({ tableInstance }) => {
                       <th
                         key={headerIndex}
                         {...column.getHeaderProps()}
-                        className="text-left text-gray-500 pb-4 text-xs"
+                        className={thStyle}
                       >
                         {column.render("Header")}
                       </th>
@@ -46,43 +76,46 @@ const Table = ({ tableInstance }) => {
               );
             })}
           </thead>
-          <tbody {...getTableBodyProps()}>
+          <tbody {...getTableBodyProps()} className="w-full pl-5">
             {rows.map((row, rowIndex) => {
               prepareRow(row);
               return (
                 <tr
                   key={rowIndex}
                   {...row.getRowProps()}
-                  className="even:bg-gray-100"
+                  className={trDataStyle}
                 >
-                  {row.cells
-                    .slice(0, row.cells.length - 1)
-                    .map(cell => cell.isVisible)
-                    .filter(value => !value).length > 0 &&
-                    row.cells.map((cell, cellIndex) => {
-                      return (
-                        <td
-                          key={cellIndex}
-                          {...cell.getCellProps()}
-                          className={`py-3`}
-                        >
-                          <p
-                            className={
-                              fadedColumn.includes(cell.column.Header)
-                                ? `text-gray-600`
-                                : cell.column.Header === "TITLE"
-                                ? "text-indigo-600"
-                                : null
-                            }
-                          >
-                            {cell.render("Cell")}
-                          </p>
-                        </td>
-                      );
-                    })}
+                  {check ? (
+                    <TableData row={row} />
+                  ) : (
+                    <RedirectionTableData
+                      row={row}
+                      editInput={editInput}
+                      editFromInput={editFromInput}
+                      editToInput={editToInput}
+                      setEditInput={setEditInput}
+                      setEditFromInput={setEditFromInput}
+                      setEditToInput={setEditToInput}
+                      fetchDetails={fetchDetails}
+                    />
+                  )}
                 </tr>
               );
             })}
+            <tr className={trDataStyle}>
+              {showAddRedirectionInput && (
+                <Redirection
+                  editFromInput={editFromInput}
+                  editToInput={editToInput}
+                  showAddRedirectionInput={showAddRedirectionInput}
+                  setShowRedirectionInput={setShowRedirectionInput}
+                  setEditInput={setEditInput}
+                  setEditFromInput={setEditFromInput}
+                  setEditToInput={setEditToInput}
+                  fetchDetails={fetchDetails}
+                />
+              )}
+            </tr>
           </tbody>
         </table>
       </div>
