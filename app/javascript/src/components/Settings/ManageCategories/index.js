@@ -93,28 +93,30 @@ const ManageCategories = () => {
   return (
     <DragDropContext onDragEnd={handleDrag}>
       <div className="w-full flex justify-center">
-        <div className="flex">
-          <div className="w-400 mr-20">
-            <Typography style="h2"> Manage Categories </Typography>
-            <Typography style="body2" className="text-gray-600">
-              Create and configure categories inside your scribble
-            </Typography>
-            <Create
-              showCreateInput={showCreateInput}
-              categoryInput={categoryInput}
-              setShowCreateInput={setShowCreateInput}
-              setCategoryInput={setCategoryInput}
-              handleCreateCategory={handleCreateCategory}
-            />
-            <DragAndDrop
-              categories={categories}
-              showCategoryEdit={showCategoryEdit}
-              categoryEditInput={categoryEditInput}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-              handleEditSubmit={handleEditSubmit}
-              setCategoryEditInput={setCategoryEditInput}
-            />
+        <div className="flex h-550 px-5 ">
+          <div className="overflow-y-scroll">
+            <div className="w-400 mr-20 ">
+              <Typography style="h2"> Manage Categories </Typography>
+              <Typography style="body2" className="text-gray-600">
+                Create and configure categories inside your scribble
+              </Typography>
+              <Create
+                showCreateInput={showCreateInput}
+                categoryInput={categoryInput}
+                setShowCreateInput={setShowCreateInput}
+                setCategoryInput={setCategoryInput}
+                handleCreateCategory={handleCreateCategory}
+              />
+              <DragAndDrop
+                categories={categories}
+                showCategoryEdit={showCategoryEdit}
+                categoryEditInput={categoryEditInput}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+                handleEditSubmit={handleEditSubmit}
+                setCategoryEditInput={setCategoryEditInput}
+              />
+            </div>
           </div>
         </div>
       </div>

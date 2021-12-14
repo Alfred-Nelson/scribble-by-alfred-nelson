@@ -35,3 +35,6 @@ en:
   not_found: "%{entity} was not found"
   destroyed: "%{entity} was successfully destoryed "
   updated: "%{entity} was successfully updated"
+  incorrect_credentials: "Invalid Credentials"
+  immutable: "Slug is immutable"
+  unauthenticated: "You are not authenticated"

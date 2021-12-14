@@ -38,7 +38,12 @@ const Container = ({ children }) => {
             </Typography>
           </NavLink>
         </div>
-        <Button style="secondary" label="Preview" icon={ExternalLink} />
+        <Button
+          style="secondary"
+          label="Preview"
+          icon={ExternalLink}
+          onClick={() => window.open("/public", "_blank")}
+        />
       </div>
       <Line />
       <div className="mr-5">{children}</div>

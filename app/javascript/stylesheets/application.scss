@@ -4,3 +4,8 @@
 @import "react-toastify/dist/ReactToastify.min.css";
 @import "@bigbinary/neetoui/v2";
 @import url("https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css");
+
+[id*=neeto-ui-accordion-item-]{
+  flex-direction: row-reverse !important;
+  justify-content: flex-end !important;
+}
