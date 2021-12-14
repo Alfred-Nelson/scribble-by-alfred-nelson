@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         post "get_authentication_token", on: :member
       end
       resources :categories, only: %i[index]
+      resources :articles, only: %i[show], param: :slug
     end
     resources :categories, except: %i[new edit]
     resources :articles, except: %i[new edit]

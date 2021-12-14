@@ -1,6 +1,6 @@
 json.categories @categories do |category|
     json.extract! category, :value
-    json.article do
-      json.articles category.articles, :heading, :slug
+    json.articles category.articles do |article|
+      json.extract! article, :heading, :slug
     end
 end

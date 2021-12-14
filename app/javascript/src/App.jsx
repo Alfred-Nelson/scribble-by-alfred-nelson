@@ -15,6 +15,7 @@ import Settings from "components/Settings";
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [redirectToLogin, setRedirectToLogin] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
 
   useEffect(() => {
     setAuthHeaders(setLoading);
@@ -45,6 +46,9 @@ const App = () => {
             <Public
               redirectToLogin={redirectToLogin}
               setRedirectToLogin={setRedirectToLogin}
+              currentLocation={currentLocation}
+              setCurrentLocation={setCurrentLocation}
+              key={window.location.pathname}
             />
           )}
         />

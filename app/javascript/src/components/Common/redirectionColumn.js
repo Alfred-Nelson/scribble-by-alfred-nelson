@@ -17,7 +17,9 @@ const redirectionColumn = (
         return (
           <div className="w-11/12 overflow-x-scroll whitespace-no-wrap">
             <div className="flex">
-              <Typography style="body2">{window.location.host}</Typography>
+              <Typography style="body2" className="text-gray-600">
+                {window.location.host}/public
+              </Typography>
               <Typography style="body2">{value}</Typography>
             </div>
           </div>
@@ -31,7 +33,9 @@ const redirectionColumn = (
         return (
           <div className="w-11/12 overflow-x-scroll whitespace-no-wrap">
             <div className="flex">
-              <Typography style="body2">{window.location.host}</Typography>
+              <Typography style="body2" className="text-gray-600">
+                {window.location.host}/public
+              </Typography>
               <Typography style="body2">{value}</Typography>
             </div>
           </div>
