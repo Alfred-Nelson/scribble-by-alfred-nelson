@@ -4,7 +4,9 @@ module.exports = {
       apis: "src/apis",
       common: "src/common",
       components: "src/components",
-      constants: "src/constants"
+      constants: "src/constants",
+      helpers: "src/helpers",
+      assets: "src/assets"
     }
   }
 };

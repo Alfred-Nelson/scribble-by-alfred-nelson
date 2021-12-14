@@ -29,16 +29,9 @@ const handleSuccessResponse = response => {
 };
 
 const handleErrorResponse = axiosErrorObject => {
-  if (axiosErrorObject.response?.status === 401) {
-    window.location.href = "/";
-  }
   Toastr.error(
     axiosErrorObject.response?.data?.error || DEFAULT_ERROR_NOTIFICATION
   );
-  if (axiosErrorObject.response?.status === 423) {
-    window.location.href = "/";
-  }
-
   return Promise.reject(axiosErrorObject);
 };
 

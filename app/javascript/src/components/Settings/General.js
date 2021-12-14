@@ -24,7 +24,7 @@ const General = () => {
 
   const fetchSiteDetails = async () => {
     const response = await SiteApi.show();
-    setSiteName(response.data.site);
+    setSiteName(response.data.site.name);
   };
 
   const checkForAlphabetInPassword = () => {
