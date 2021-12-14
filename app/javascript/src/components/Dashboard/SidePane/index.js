@@ -58,7 +58,6 @@ const SidePane = ({
           setFilter("status", "Draft");
         }}
       />
-
       <MenuBar.SubTitle
         iconProps={[
           {
@@ -101,23 +100,25 @@ const SidePane = ({
         setIsAddCategoryCollapsed={setIsAddCategoryCollapsed}
         fetchCategoryDetails={fetchCategoryDetails}
       />
-      {filteredCategories.map((category, index) => (
-        <MenuBar.Block
-          key={index}
-          label={category.value}
-          count={category.article_count}
-          active={activeCategoryBlock === category.value}
-          onClick={() => {
-            if (activeCategoryBlock !== category.value) {
-              setActiveCategoryBlock(category.value);
-              setFilter("category", category.value);
-            } else {
-              setActiveCategoryBlock("");
-              setFilter("category", undefined);
-            }
-          }}
-        />
-      ))}
+      <div className="h-370 px-2 overflow-y-scroll">
+        {filteredCategories.map((category, index) => (
+          <MenuBar.Block
+            key={index}
+            label={category.value}
+            count={category.article_count}
+            active={activeCategoryBlock === category.value}
+            onClick={() => {
+              if (activeCategoryBlock !== category.value) {
+                setActiveCategoryBlock(category.value);
+                setFilter("category", category.value);
+              } else {
+                setActiveCategoryBlock("");
+                setFilter("category", undefined);
+              }
+            }}
+          />
+        ))}
+      </div>
     </MenuBar>
   );
 };
