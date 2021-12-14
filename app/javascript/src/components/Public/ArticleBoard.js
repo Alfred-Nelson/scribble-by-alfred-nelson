@@ -21,7 +21,7 @@ const ArticleBoard = () => {
 
   return (
     <div className="mx-10 mt-10">
-      <div className="w-full h-650 p-5 overflow-y-scroll">
+      <div className="w-full h-600 p-5 overflow-y-scroll">
         <Typography style="h1" className="mb-2">
           {" "}
           {article?.heading}{" "}
